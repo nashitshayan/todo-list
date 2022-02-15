@@ -8,4 +8,4 @@ function createTodo(title, description,dueDate,priority,checklist){
 //  const changePriority = (newPriority)=> 
 
 
- export {createTodo,markComplete , changePriority}
+ export {createTodo,markComplete }
