@@ -62,6 +62,16 @@ body{
     grid-row: 2/12;
 }
 
+#todoWrapper{
+    border: 1px solid var(--clr-accent);
+    margin: 2rem;
+}
+#addTodo{
+    font-size: 2rem;
+}
+#addTodo:hover{
+    cursor: pointer;
+}
 
 
 #footer{

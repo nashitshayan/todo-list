@@ -1,11 +1,12 @@
+const todoArray= [];
 
-function createTodo(title, description,dueDate,priority,checklist){
-    return {title,description,dueDate,priority,checklist};
+function createTodo(checkBox, title ,dueDate,priority){
+    return {checkBox, title,dueDate,priority};
 }
 
- const markComplete = (status)=> !status; 
+ 
 
 //  const changePriority = (newPriority)=> 
 
 
- export {createTodo,markComplete }
+ export {createTodo }
