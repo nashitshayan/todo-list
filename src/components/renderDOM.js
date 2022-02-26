@@ -1,4 +1,6 @@
 import {format} from 'date-fns';
+import { mainAppModule } from './app';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function renderDOM(){
     const content = document.createElement('div');
@@ -43,46 +45,73 @@ export default function renderDOM(){
     content.append(header,menuBtn,aside,main,footer);
     return content;
 }
+/*
+1. form pop up
+2. on save store todo
+3. render
+ */
 
 const makeToDo = ()=>{
+    let newTodoId= uuidv4();
     let currentDate= format(new Date(), 'yyyy-MM-dd');
     let newTodo= document.createElement('div');
-    //newTodo.textContent= 'NEW TODO';
+    newTodo.classList.add('todoItemWrapper')
     newTodo.style.backgroundColor='red';
-     
-    let checkboxDiv= document.createElement('span')
-    checkboxDiv.innerHTML= `
-        <input type="checkbox" id="checklist" >
-        `
+    
+    newTodo.dataset.id= newTodoId;
+
+    // let checkboxDiv= document.createElement('span')
+    // checkboxDiv.innerHTML= `
+    //     <input type="checkbox" id="checklist" >
+    //     `
     let newTitle = document.createElement('span');
     newTitle.innerHTML=`
-        <input type='text'>  
+    <input type='text' placeholder='type here...'>
         `;
     let dueDate = document.createElement('span');
     dueDate.innerHTML=`
-        <input type="date" id="dueDate">   
+    <input type="date" class="dueDate" min=${currentDate}>
         `;
-    dueDate.firstElementChild.min= `${currentDate}`;
     
     let priority= document.createElement('span');
     priority.innerHTML= `
-        <select name="todoPriority" id="todoPriority">
+        <select name="todoPriority" class="todoPriority">
             <option value="low">low</option>
             <option value="medium">medium</option>
             <option value="high">high</option>
         </select>
         `;
 
+        let saveBtn= document.createElement('span');
+        saveBtn.classList.add('saveTodo');
+        saveBtn.innerHTML= `
+        <i class="fa-solid fa-check tick"></i>
+        `
+
     let deleteBtn = document.createElement('span');
+    deleteBtn.classList.add('deleteTodo');
     deleteBtn.innerHTML=`
         <i class="fa-solid fa-xmark"></i>    
     `;
 
-    newTodo.append(checkboxDiv,newTitle, dueDate,priority, deleteBtn);
-
+    newTodo.append(newTitle, dueDate,priority,saveBtn ,deleteBtn);
+    
+    /**<input type="checkbox" class="checkbox" >
+        
+           */
     todoWrapper.insertBefore(newTodo, addTodo);
+    console.log();
+    
+    saveBtn.addEventListener('click',handleSave)
+    deleteBtn.addEventListener('click', handleDelete)
 }
 
+const handleSave= ()=> {
+    console.log('saved')
+}
+const handleDelete= (e)=>{
+    console.log(e.target.parentElement)
+}
 function menuToggle(aside, main){
     if(aside.style.display==='none')
     { 
@@ -99,3 +128,4 @@ function menuToggle(aside, main){
     }
 
 }
+
