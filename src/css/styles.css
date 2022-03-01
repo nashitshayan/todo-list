@@ -54,6 +54,13 @@ body{
 }
 
 
+#defaultProjectsDiv, #customProjectsDiv{
+    border: 1px solid var(--clr-secondary);
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+
 
 #main{
     background-color: var(--clr-primaryDark);
@@ -67,12 +74,19 @@ body{
     margin: 2rem;
 }
 #addTodo{
-    font-size: 2rem;
+    /* font-size: 2rem; */
+    padding: 1rem;
 }
 #addTodo:hover{
     cursor: pointer;
 }
 
+
+.saveTodo, .deleteTodo{
+    margin: 0 0.5rem;
+    border: 1px solid var(--clr-secondary);
+    padding: 0.5rem;
+}
 
 #footer{
     background-color: var(--clr-secondary);

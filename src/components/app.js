@@ -5,6 +5,7 @@ const TodoFactory= (id, isDone='false',title='Untitled', dueDate= currentDate, p
 
     return {id,isDone,title,dueDate,priority};
 }
+
 // let todoArray= [
 //     {
 //         id: 1,
@@ -50,7 +51,7 @@ const TodoFactory= (id, isDone='false',title='Untitled', dueDate= currentDate, p
 
 
 
-const ProjectFactory= (pId,title, description)=>{
+const ProjectFactory= (pId,pTitle, pDescription)=>{
     let todoArray= [];
 
     function getProjectDetails(){return {pId,title,description}}
@@ -91,7 +92,7 @@ const ProjectFactory= (pId,title, description)=>{
     const deleteTodo = (id)=>{todoArray=todoArray.filter((todo)=> todo.id!=id)};
 
     return {
-        getProjectDetails,addTodo,getAllTodos, getTodoById,changeStatus ,changeTitle, changeDueDate, changePriority, deleteTodo
+        pId,pTitle,pDescription,addTodo,getAllTodos, getTodoById,changeStatus ,changeTitle, changeDueDate, changePriority, deleteTodo
     }
 }
 
@@ -99,7 +100,7 @@ const ProjectManager = (()=>{
     const projectArray= [];
 
     const findProject = (projectArray,id)=>{
-        return projectArray.find(project=> project.id===id);
+     return (projectArray.find(project=> project.pId===id));
     }
     
     const addProject = (id,title='Untitled', description= 'No Description')=>{
@@ -109,23 +110,30 @@ const ProjectManager = (()=>{
 
     const getAllProjects= ()=> projectArray;
 
-    const getProjectById= (id)=> findProject(projectArray, id);
+    const getProjectById= (id)=>findProject(projectArray, id);
 
     const changeProjectTitle= (newTitle,id)=>{
         let targetProject= findProject(projectArray,id);
-        targetProject.title= newTitle;
+        targetProject.pTitle= newTitle;
     }
 
     const changeProjectDescription= (newDescription, id)=>{
         let targetProject= findProject(projectArray,id);
-        targetProject.description= newDescription;
+        targetProject.pDescription= newDescription;
     }
 
-    return {addProject, getAllProjects, getProjectById, changeProjectDescription, changeProjectTitle}
+    return {
+        addProject, getAllProjects, getProjectById, changeProjectDescription, changeProjectTitle
+    }
 
 })();
 
-// ProjectManager.addProject(1, 'work', 'webdev');
+
+export  {ProjectManager};
+
+//  ProjectManager.addProject(1, 'work', 'webdev');
+//  ProjectManager.addProject(2, 'read', 'docs');
+//  console.log(ProjectManager.getProjectById(1));
 // let projectArr= ProjectManager.getAllProjects();
 // projectArr[0].addTodo(2,false,'work on app','2022-02-28', 'high');
 // console.log(projectArr[0].getAllTodos())
@@ -201,20 +209,3 @@ const ProjectManager = (()=>{
 
 // }
 
-
-
-
-
-// return {
-//     todoFactory,
-//     changeStatus,
-//     changeTitle,
-//     changePriority,
-//     changeDueDate,
-//     deleteTodo,
-//     customProjectFactory,
-//     changeProjectTitle
-// }
-// })();
-
-// export {mainAppModule}
