@@ -41,18 +41,18 @@ const handleCancelProjectForm= (customProjectsDiv, newProjectForm)=>{
 
 const handleAddProject= (e)=>{
     let newProjectId= uuidv4();
-    let projectTitle= document.getElementById('projectTitle');
-    let projectDescription= document.getElementById('projectDescription');
-    console.log(projectTitle.value, projectDescription.value);
+    let projectTitle= document.getElementById('projectTitle').value;
+    let projectDescription= document.getElementById('projectDescription').value;
+    console.log(projectTitle, projectDescription);
 
-    ProjectManager.addProject(newProjectId,projectTitle.value,projectDescription.value);
+    ProjectManager.addProject(newProjectId,projectTitle,projectDescription);
     
     renderNewProject(e.target.parentElement, newProjectId);
 }
 
 
 const renderNewProject= (projectForm, pId)=>{
-    console.log(ProjectManager.getProjectById(pId))
+    //console.log(ProjectManager.getProjectById(pId))
     let projectTile= document.createElement('div');
     projectTile.innerHTML= `
         <div>${ProjectManager.getProjectById(pId).pTitle}</div>

@@ -1,97 +1,134 @@
 import { v4 as uuidv4 } from 'uuid';
 import {format} from 'date-fns';
+import renderTodos from './renderTodos';
+import addTodoButton from './addTodoButton';
 
 
-export default function renderProject(project){
+export default function renderProject(currentProject){
     const projectHeading= document.getElementById('projectHeading');
-    const main= document.getElementById('main');
+    projectHeading.dataset.id= currentProject.pId;
+    //const main= document.getElementById('main');
     const todoWrapper= document.getElementById('todoWrapper');
-    todoWrapper.innerHTML='';
+   // todoWrapper.innerHTML='';
 
+    projectHeading.textContent= currentProject.pTitle;
+    renderTodos(currentProject);
+    if(todoWrapper.innerHTML==='')
+        addTodoButton(todoWrapper)
+    // if (!todoWrapper.classList.contains("click-handler")) {
+    //     todoWrapper.classList.add("click-handler");
+    //     todoWrapper.addEventListener("click", (e)=> handleClick(e));
+    // }
+   // todoWrapper.addEventListener('click', (e)=> handleClick(project,e))
+//    const handleClick= (e)=>{
+//     console.log('soime', currentProject.pTitle)
+//     if(e.target.closest('#addTodo')) handleAddTodo();
+//     if(e.target.closest('.deleteTodo')) handleCancelTodoForm(e);
+//     if(e.target.closest('.saveTodo')) handleSave(currentProject);
 
-    projectHeading.textContent= project.pTitle;
+// }
 
-    
-    let addTodo= document.createElement('button');
-    addTodo.id='addTodo';
-    addTodo.innerHTML= `<i class="fa-solid fa-plus"></i>`
-    //addTodo.classList.add('fa', 'fa-plus-circle')
-    
-    
-    todoWrapper.append(addTodo)
-    
-    todoWrapper.addEventListener('click', handleClick)
-    // addTodo.addEventListener('click', );
-    main.append(todoWrapper);
+    //main.append(todoWrapper);
 }
 
-const handleClick= (e)=>{
-    console.log(e.target)
-    if(e.target.id==='addTodo') handleAddTodo();
-    if(e.target.classList.contains('deleteTodo')) handleCancelTodoForm(e);
-    if(e.target.classList.contains('saveTodo')) handleSave(e);
+// const addTodoButton = (todoWrapper)=>{
+//     let addTodo= document.createElement('button');
+//     addTodo.id='addTodo';
+//     addTodo.innerHTML= `<i class="fa-solid fa-plus"></i>`
+//     //addTodo.classList.add('fa', 'fa-plus-circle')
+//     todoWrapper.append(addTodo)
+// }
 
-}
+// const handleSave= (currentProject)=> {
+//     console.log('saved', currentProject.pTitle)
+//     let newTodoId= uuidv4();
+//     let todoTitle = document.getElementById('todoTitle').value;
+//     let todoDueDate = document.getElementById('todoDueDate').value;
+//     let todoPriorityElement = document.getElementById('todoPriority');
+//     let todoPriority= todoPriorityElement.options[todoPriorityElement.selectedIndex].text;
 
-const handleAddTodo = ()=>{
-    let newTodoId= uuidv4();
-    let currentDate= format(new Date(), 'yyyy-MM-dd');
-    let newTodo= document.createElement('div');
-    newTodo.classList.add('todoItemWrapper')
-    newTodo.style.backgroundColor='red';
+
+//     currentProject.addTodo(newTodoId, false, todoTitle, todoDueDate, todoPriority)
+//     renderTodos(currentProject);
+
+// }
+
+// const handleAddTodo = ()=>{
     
-    newTodo.dataset.id= newTodoId;
-
-    // let checkboxDiv= document.createElement('span')
-    // checkboxDiv.innerHTML= `
-    //     <input type="checkbox" id="checklist" >
-    //     `
-    let newTitle = document.createElement('span');
-    newTitle.innerHTML=`
-    <input type='text' placeholder='type here...'>
-        `;
-    let dueDate = document.createElement('span');
-    dueDate.innerHTML=`
-    <input type="date" class="dueDate" min=${currentDate}>
-        `;
+//     let currentDate= format(new Date(), 'yyyy-MM-dd');
     
-    let priority= document.createElement('span');
-    priority.innerHTML= `
-        <select name="todoPriority" class="todoPriority">
-            <option value="low">low</option>
-            <option value="medium">medium</option>
-            <option value="high">high</option>
-        </select>
-        `;
-
-    let saveBtn= document.createElement('i');
-    saveBtn.classList.add('saveTodo', 'fa-solid', 'fa-check','tick');
+//     let newTodo= document.createElement('div');
+//     newTodo.classList.add('todoItemWrapper')
+//     newTodo.style.backgroundColor='red';
     
+//     let newTitle = document.createElement('span');
+//     newTitle.innerHTML=`
+//     <input id='todoTitle' type='text' placeholder='type here...'>
+//         `;
+//     let dueDate = document.createElement('span');
+//     dueDate.innerHTML=`
+//     <input id='todoDueDate' type="date" class="dueDate" min=${currentDate}>
+//         `;
+    
+//     let priority= document.createElement('span');
+//     priority.innerHTML= `
+//         <select id='todoPriority' name="todoPriority" class="todoPriority">
+//             <option value="low">low</option>
+//             <option value="medium">medium</option>
+//             <option value="high">high</option>
+//         </select>
+//         `;
 
-    let deleteBtn = document.createElement('i');
-    deleteBtn.classList.add('deleteTodo', 'fa-solid' ,'fa-xmark');
+//     let saveBtn= document.createElement('i');
+//     saveBtn.classList.add('saveTodo', 'fa-solid', 'fa-check','tick');
     
 
-    newTodo.append(newTitle, dueDate,priority,saveBtn ,deleteBtn);
+//     let deleteBtn = document.createElement('i');
+//     deleteBtn.classList.add('deleteTodo', 'fa-solid' ,'fa-xmark');
     
-    /**<input type="checkbox" class="checkbox" >
+
+//     newTodo.append(newTitle, dueDate,priority,saveBtn ,deleteBtn);
+//     todoWrapper.insertBefore(newTodo, addTodo);
+
+// }
+
+
+
+// const handleCancelTodoForm= (e)=>{
+//     let todoWrapper= e.target.closest('#todoWrapper')
+//     let todoItem= e.target.closest('.todoItemWrapper')
+//     todoWrapper.removeChild(todoItem);
+//     console.log(todoWrapper, todoItem)
+// }
+
+// const renderTodos= (currentProject)=>{
+//     let todoArray= currentProject.getAllTodos();
+//     console.log(currentProject)
+//     let todoWrapper= document.querySelector('#todoWrapper');
+
+//     todoWrapper.innerHTML='';
+//     todoWrapper.removeEventListener("click", (e)=> handleClick(e));
+//     todoArray.forEach(todo=>{
+//         let todoItem= document.createElement('div');
+//         todoItem.classList.add('todoItemDisplay');
+
+//         todoItem.innerHTML= `
+           
+//             <input class='todoCheckBoxDisplay'type='checkbox' />
+            
+//             <div class='todoTitleDisplay'>
+//                 ${todo.title}
+//             </div>
+//             <div class='todoDueDateDisplay'>
+//                 DueDate: ${todo.dueDate}
+//             </div>
+//             <div class='todoPriorityDisplay'>
+//                 Priority: ${todo.priority}
+//             </div>
+//         `
         
-           */
-    todoWrapper.insertBefore(newTodo, addTodo);
- 
-    
-   // saveBtn.addEventListener('click',handleSave)
-    //deleteBtn.addEventListener('click', handleCancelTodoForm)
-}
+//         todoWrapper.append(todoItem)
+//         addTodoButton(todoWrapper);
+//     })
 
-const handleSave= (e)=> {
-    console.log('saved')
-}
-
-const handleCancelTodoForm= (e)=>{
-    let todoWrapper= e.target.parentElement.parentElement;
-    let todoItem= e.target.parentElement;
-    todoWrapper.removeChild(todoItem);
-    console.log(todoWrapper, todoItem)
-    //todoWrapper.removeChild();
-}
+// }
