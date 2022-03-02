@@ -6,8 +6,8 @@ import renderTodos from './renderTodos';
 
 
 export default function main(){
-    const main = document.createElement('div');
-    main.id= 'main';
+    const mainDiv = document.createElement('div');
+    mainDiv.id= 'main';
     
     let projectHeading= document.createElement('h2');
     projectHeading.id= 'projectHeading';
@@ -19,8 +19,8 @@ export default function main(){
     //event delegation
     todoWrapper.addEventListener("click", (e)=> handleClick(e));
 
-    main.append(projectHeading, todoWrapper)
-    return main;
+    mainDiv.append(projectHeading, todoWrapper)
+    return mainDiv;
 }
 
 const handleClick= (e)=>{

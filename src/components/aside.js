@@ -2,10 +2,10 @@ import { ProjectManager } from './app';
 import { v4 as uuidv4 } from 'uuid';
 import renderProject from './renderProject';
 export default function aside(){
-    const aside = document.createElement('div');
-    aside.id= 'aside';
-    aside.textContent= 'ASIDE';
-    aside.style.display = 'none';
+    const asideDiv = document.createElement('div');
+    asideDiv.id= 'aside';
+    asideDiv.textContent= 'ASIDE';
+    asideDiv.style.display = 'none';
 
     let defaultProjectsDiv= document.createElement('div');
     defaultProjectsDiv.textContent= 'DEFAULT PROJECT DIV';
@@ -25,17 +25,17 @@ export default function aside(){
     
     addNewProjectDiv.addEventListener('click', ()=>newProjectForm(customProjectsDiv,addNewProjectDiv));
 
-    aside.append(defaultProjectsDiv, customProjectsDiv);
+    asideDiv.append(defaultProjectsDiv, customProjectsDiv);
 
-    return aside;
+    return asideDiv;
 }
 
 
 
 
 
-const handleCancelProjectForm= (customProjectsDiv, newProjectForm)=>{
-    customProjectsDiv.removeChild(newProjectForm);
+const handleCancelProjectForm= (customProjectsDiv, newProjForm)=>{
+    customProjectsDiv.removeChild(newProjForm);
 }
 
 
@@ -66,9 +66,9 @@ const renderNewProject= (projectForm, pId)=>{
 
 const newProjectForm = (customProjectsDiv,addNewProjectDiv)=>{
 
-    let newProjectForm= document.createElement('div');
+    let newProjectFormDiv= document.createElement('div');
     
-    newProjectForm.innerHTML= `
+    newProjectFormDiv.innerHTML= `
         <input id='projectTitle' type='text' placeholder='enter title here'/>
         <input id='projectDescription' type='text' placeholder='enter description here'/>
     `
@@ -80,11 +80,11 @@ const newProjectForm = (customProjectsDiv,addNewProjectDiv)=>{
     let cancelBtn= document.createElement('button');
     cancelBtn.textContent= "Cancel";
 
-    cancelBtn.addEventListener('click', ()=> handleCancelProjectForm(customProjectsDiv,newProjectForm))
+    cancelBtn.addEventListener('click', ()=> handleCancelProjectForm(customProjectsDiv,newProjectFormDiv))
 
     addProjectBtn.addEventListener('click',handleAddProject)
 
-    newProjectForm.append(addProjectBtn, cancelBtn)
-    customProjectsDiv.insertBefore(newProjectForm, addNewProjectDiv);
+    newProjectFormDiv.append(addProjectBtn, cancelBtn)
+    customProjectsDiv.insertBefore(newProjectFormDiv, addNewProjectDiv);
 }
 

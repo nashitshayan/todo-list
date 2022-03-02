@@ -1,4 +1,4 @@
-import { format, addWeeks, addDays} from "date-fns";
+import { format} from "date-fns";
 let currentDate= format(new Date(), 'yyyy-MM-dd');
 
 const TodoFactory= (id, isDone='false',title='Untitled', dueDate= currentDate, priority='low')=>{
@@ -54,11 +54,11 @@ const TodoFactory= (id, isDone='false',title='Untitled', dueDate= currentDate, p
 const ProjectFactory= (pId,pTitle, pDescription)=>{
     let todoArray= [];
 
-    function getProjectDetails(){return {pId,title,description}}
+    //function getProjectDetails(){return {pId,title,description}}
 
 
-    const findTodo = (todoArray,id)=>{
-        return todoArray.find(todo=> todo.id===id);
+    const findTodo = (todoArr,id)=>{
+        return todoArr.find(todo=> todo.id===id);
     }
     
     const addTodo = (id,isDone,title,dueDate, priority)=>{
@@ -99,8 +99,8 @@ const ProjectFactory= (pId,pTitle, pDescription)=>{
 const ProjectManager = (()=>{
     const projectArray= [];
 
-    const findProject = (projectArray,id)=>{
-     return (projectArray.find(project=> project.pId===id));
+    const findProject = (projectArr,id)=>{
+     return (projectArr.find(project=> project.pId===id));
     }
     
     const addProject = (id,title='Untitled', description= 'No Description')=>{

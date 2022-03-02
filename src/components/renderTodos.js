@@ -29,7 +29,7 @@ export default function renderTodos(currentProject){
         `
         
         todoWrapper.append(todoItem)
-        addTodoButton(todoWrapper);
+        
     })
-
+        addTodoButton(todoWrapper);
 }

@@ -1,4 +1,4 @@
-import { createTodo, markComplete , changePriority} from "./components/app";
+//import { createTodo, markComplete , changePriority} from "./components/app";
 
 import renderDOM from './components/renderDOM';
 import './css/styles.css';
