@@ -52,23 +52,29 @@ const TodoFactory= (id, isDone='false',title='Untitled', dueDate= currentDate, p
 
 
 const ProjectFactory= (pId,pTitle, pDescription)=>{
+    //local array that will store each project's todos
     let todoArray= [];
 
     //function getProjectDetails(){return {pId,title,description}}
 
-
+    //search for a particular todo in the todo array
     const findTodo = (todoArr,id)=>{
         return todoArr.find(todo=> todo.id===id);
     }
     
+    //create new todos
     const addTodo = (id,isDone,title,dueDate, priority)=>{
         let newTodo= TodoFactory(id,isDone,title,dueDate, priority);
         todoArray.push(newTodo);
     }
 
-    const getAllTodos= ()=>  todoArray;
 
+    //read todos
+    const getAllTodos= ()=>  todoArray;
     const getTodoById= (id)=> findTodo(todoArray,id);
+    
+
+    //update todo details
     const changeStatus = (id)=> {
         let targetTodo = findTodo(todoArray,id);
         targetTodo.isDone= targetTodo.isDone===true? false: true;
@@ -89,6 +95,8 @@ const ProjectFactory= (pId,pTitle, pDescription)=>{
         targetTodo.priority= newPriority;    
     };
 
+
+    //delete
     const deleteTodo = (id)=>{todoArray=todoArray.filter((todo)=> todo.id!=id)};
 
     return {
@@ -96,22 +104,30 @@ const ProjectFactory= (pId,pTitle, pDescription)=>{
     }
 }
 
+
 const ProjectManager = (()=>{
+    //the array to hold all projects
     const projectArray= [];
 
+    //search for a particular project
     const findProject = (projectArr,id)=>{
      return (projectArr.find(project=> project.pId===id));
     }
     
+
+    //create a new project
     const addProject = (id,title='Untitled', description= 'No Description')=>{
         let newProject= ProjectFactory(id,title,description);
         projectArray.push(newProject);
     }
 
-    const getAllProjects= ()=> projectArray;
 
+    //read projects
+    const getAllProjects= ()=> projectArray;
     const getProjectById= (id)=>findProject(projectArray, id);
 
+
+    //update project details
     const changeProjectTitle= (newTitle,id)=>{
         let targetProject= findProject(projectArray,id);
         targetProject.pTitle= newTitle;

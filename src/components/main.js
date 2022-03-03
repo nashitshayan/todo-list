@@ -3,7 +3,7 @@ import {format} from 'date-fns';
 import { ProjectManager } from './app';
 import renderTodos from './renderTodos';
 
-
+const getCurrentDate = ()=> format(new Date(), 'yyyy-MM-dd');
 
 export default function main(){
     const mainDiv = document.createElement('div');
@@ -23,6 +23,7 @@ export default function main(){
     return mainDiv;
 }
 
+
 const handleClick= (e)=>{
     //console.log('soime', currentProject.pTitle)
     if(e.target.closest('#addTodo')) handleAddTodo();
@@ -31,12 +32,15 @@ const handleClick= (e)=>{
 
 }
 
+
 const handleAddTodo = ()=>{
     
-    let currentDate= format(new Date(), 'yyyy-MM-dd');
+    let currentDate= getCurrentDate();
     
+    //create a wrapper to hold all input fields. 
     let newTodo= document.createElement('div');
     newTodo.classList.add('todoItemWrapper')
+    //STYLE NEEDS UPDATE
     newTodo.style.backgroundColor='red';
     
     let newTitle = document.createElement('span');
@@ -61,21 +65,23 @@ const handleAddTodo = ()=>{
     saveBtn.classList.add('saveTodo', 'fa-solid', 'fa-check','tick');
     
 
-    let deleteBtn = document.createElement('i');
-    deleteBtn.classList.add('deleteTodo', 'fa-solid' ,'fa-xmark');
+    let cancelBtn = document.createElement('i');
+    cancelBtn.classList.add('deleteTodo', 'fa-solid' ,'fa-xmark');
     
 
-    newTodo.append(newTitle, dueDate,priority,saveBtn ,deleteBtn);
+    newTodo.append(newTitle, dueDate,priority,saveBtn ,cancelBtn);
     todoWrapper.insertBefore(newTodo, addTodo);
 
 }
+
 
 const handleCancelTodoForm= (e)=>{
     let todoWrapper= e.target.closest('#todoWrapper')
     let todoItem= e.target.closest('.todoItemWrapper')
     todoWrapper.removeChild(todoItem);
-    console.log(todoWrapper, todoItem)
+    //.log(todoWrapper, todoItem)
 }
+
 
 const handleSave= ()=> {
     let currentProject= getCurrentProject();
@@ -92,6 +98,7 @@ const handleSave= ()=> {
    // console.log(currentProject.getAllTodos())
 
 }
+
 
 const getCurrentProject =()=>{
     //console.log('cuurent projh')

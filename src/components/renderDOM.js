@@ -1,21 +1,21 @@
 
 //import { ProjectManager } from './app';
 
+import header from './header';
 import aside from './aside';
 import main from './main';
+import footer from './footer';
 export default function renderDOM(){
     const content = document.createElement('div');
     content.id= 'content';
 
-    const header = document.createElement('div');
-    header.id= 'header';
 
-    const footer = document.createElement('div');
-    footer.id= 'footer';
 
-    header.textContent= 'Todo';
-    footer.textContent= 'footer';
+
     
+    
+    
+    //collapsing sidebar functionality for mobile
     const menuBtn= document.createElement('span');
     menuBtn.id= 'menuBtn';
     menuBtn.innerHTML= `<i class="fa-solid fa-bars"></i>`;
@@ -23,7 +23,7 @@ export default function renderDOM(){
 
 
     
-    content.append(header,menuBtn,aside(),main(),footer);
+    content.append(header(),menuBtn,aside(),main(),footer());
     return content;
 }
 /*

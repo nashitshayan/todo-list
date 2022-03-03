@@ -35,7 +35,7 @@ body{
 }
 
 
-#header{
+header{
     background-color: var(--clr-secondary);
     color: var(--clr-accent);
     grid-column: 1/13;
@@ -88,15 +88,23 @@ body{
     padding: 0.5rem;
 }
 
-#footer{
+footer{
     background-color: var(--clr-secondary);
-    color: var(--clr-accent);
+    color: var(--clr-neutral);
     grid-column: 1/13;
     grid-row: 12/13;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+footer a{
+    text-decoration: none;
+    color: var(--clr-accent);
+    margin: 0 5px;
+}
+
+
 
 #menuBtn{
     position:absolute;
