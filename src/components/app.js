@@ -147,9 +147,9 @@ const ProjectManager = (()=>{
 
 export  {ProjectManager};
 
-//  ProjectManager.addProject(1, 'work', 'webdev');
+ // ProjectManager.addProject(1, 'work', 'webdev');
 //  ProjectManager.addProject(2, 'read', 'docs');
-//  console.log(ProjectManager.getProjectById(1));
+ // console.log(ProjectManager.getProjectById(1));
 // let projectArr= ProjectManager.getAllProjects();
 // projectArr[0].addTodo(2,false,'work on app','2022-02-28', 'high');
 // console.log(projectArr[0].getAllTodos())

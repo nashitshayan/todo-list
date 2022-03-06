@@ -26,20 +26,26 @@ export default function aside(){
     //make an element that will allow users to add new projects
     let addNewProjectDiv= document.createElement('span');
     addNewProjectDiv.innerHTML= `Add New Project <i class="fa fa-plus-circle"></i>`;
-    
+    addNewProjectDiv.id='addNewProject';
     
     customProjectsDiv.append(addNewProjectDiv)
     
-    //pop out a new project form
-    addNewProjectDiv.addEventListener('click', ()=>newProjectForm(customProjectsDiv,addNewProjectDiv));
+    //event delegation
+    customProjectsDiv.addEventListener('click', handleClick)
+   
 
     asideDiv.append(defaultProjectsDiv, customProjectsDiv);
 
     return asideDiv;
 }
 
+const handleClick = (e)=>{
+    if(e.target.closest('#addNewProject')) newProjectForm(e.target.closest('#addNewProject'));
+    if(e.target.closest('#btnAddProject')) handleAddProject(e);
+    if(e.target.closest('#btnCancelProject')) handleCancelProjectForm(e.target.closest('#btnCancelProject').parentElement);
+}
 
-const newProjectForm = (customProjectsDiv,addNewProjectDiv)=>{
+const newProjectForm = (addNewProjectDiv)=>{
 
     let newProjectFormDiv= document.createElement('div');
     
@@ -48,26 +54,24 @@ const newProjectForm = (customProjectsDiv,addNewProjectDiv)=>{
         <input id='projectDescription' type='text' placeholder='enter description here'/>
     `
 
-    let addProjectBtn= document.createElement('button');
-    addProjectBtn.type= 'submit';
-    addProjectBtn.textContent= "Add";
+    let btnAddProject= document.createElement('button');
+    btnAddProject.type= 'submit';
+    btnAddProject.textContent= "Add";
+    btnAddProject.id='btnAddProject';
     
-    let cancelBtn= document.createElement('button');
-    cancelBtn.textContent= "Cancel";
+    let btnCancelProject= document.createElement('button');
+    btnCancelProject.textContent= "Cancel";
+    btnCancelProject.id='btnCancelProject';
 
-    //cancel project
-    cancelBtn.addEventListener('click', ()=> handleCancelProjectForm(customProjectsDiv,newProjectFormDiv))
 
-    //save project
-    addProjectBtn.addEventListener('click',handleAddProject)
 
-    newProjectFormDiv.append(addProjectBtn, cancelBtn)
+    newProjectFormDiv.append(btnAddProject, btnCancelProject)
     customProjectsDiv.insertBefore(newProjectFormDiv, addNewProjectDiv);
 }
 
 
 
-const handleCancelProjectForm= (customProjectsDiv, newProjForm)=>{
+const handleCancelProjectForm= (newProjForm)=>{
     customProjectsDiv.removeChild(newProjForm);
 }
 
@@ -80,20 +84,22 @@ const handleAddProject= (e)=>{
 
     //add project to the Project Array
     ProjectManager.addProject(newProjectId,projectTitle,projectDescription);
-    
+
+    let projectForm= e.target.parentElement;
     //display the newly added project
-    renderNewProject(e.target.parentElement, newProjectId);
+    renderNewProjectTile(projectForm, newProjectId);
 }
 
 
-const renderNewProject= (projectForm, pId)=>{
+const renderNewProjectTile= (projectForm, pId)=>{
     //console.log(ProjectManager.getProjectById(pId))
     let projectTile= document.createElement('div');
+    projectTile.classList.add('projectTile');
     projectTile.innerHTML= `
         <div>${ProjectManager.getProjectById(pId).pTitle}</div>
         <div>${ProjectManager.getProjectById(pId).pDescription}</div>
     `
-    projectForm.parentElement.replaceChild(projectTile, projectForm)
+    customProjectsDiv.replaceChild(projectTile, projectForm)
 
     //every time the project tile is clicked, display project details with all its todos sin the mainContent
     projectTile.addEventListener('click', ()=>renderProjectPage(ProjectManager.getProjectById(pId)))

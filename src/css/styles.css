@@ -82,7 +82,7 @@ header{
 }
 
 
-.saveTodo, .deleteTodo{
+.saveTodo, .cancelTodo{
     margin: 0 0.5rem;
     border: 1px solid var(--clr-secondary);
     padding: 0.5rem;

@@ -15,7 +15,7 @@ export default function renderTodos(currentProject){
     todoArray.forEach(todo=>{
         let todoItem= document.createElement('div');
         todoItem.classList.add('todoItemDisplay');
-
+        todoItem.dataset.id= todo.id;
         todoItem.innerHTML= `
            
             <input class='todoCheckBoxDisplay'type='checkbox' />
@@ -29,6 +29,8 @@ export default function renderTodos(currentProject){
             <div class='todoPriorityDisplay'>
                 Priority: ${todo.priority}
             </div>
+            <i id='editTodoBtn' class="fa-solid fa-pencil"></i>
+            <i id='deleteTodoBtn'class="fa-solid fa-trash"></i>
         `
         
         todoWrapper.append(todoItem)
