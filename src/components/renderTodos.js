@@ -31,7 +31,7 @@ export default function renderTodos(currentProject){
                 Priority: ${todo.priority}
             </div>
             <i id='editTodoBtn' class="fa-solid fa-pencil"></i>
-            <i id='deleteTodoBtn'class="fa-solid fa-trash"></i>
+            <i id='deleteTodoBtn' class="fa-solid fa-trash"></i>
         `
         
         todoWrapper.append(todoItem)

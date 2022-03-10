@@ -32,7 +32,7 @@ const handleClick= (e)=>{
     if(e.target.closest('.cancelTodo')) handleCancelTodoForm(e);
     if(e.target.closest('.saveTodo')) handleSave(e);
     if(e.target.closest('#editTodoBtn')) handleEditTodo(e);
-    if(e.target.closest('#deleteTodoBtn')) handleDeleteTodo();
+    if(e.target.closest('#deleteTodoBtn')) handleDeleteTodo(e);
 }
 
 // const handleChange = (e)=>{
@@ -55,23 +55,26 @@ const updateTodoPriority =(e)=>{
  /*
 What I was thinking of doing is :
 
-- for edit-> onclick-> replace current todo element with a form element-> and add the current todo's values to it -> change the values as needed -> each input field having an onchange that updates the todo's values storage by calling the respective functions (changeTitle, changePriority etc)
+
+What do you folks think about this approach?
+ */
+const handleEditTodo= (e)=>{
+    /**
+     * - for edit-> onclick-> replace current todo element with a form element-> and add the current todo's values to it -> change the values as needed -> each input field having an onchange that updates the todo's values storage by calling the respective functions (changeTitle, changePriority etc)
 -> this form element will also have a save and cancel button
 -> cancel-> onclick-> revert-> replace the form element back with the original todo element with the same values that were before
 -> save-> onclick 
                        -> replace this form element back with the todo element, with the updated values
                        -> OR, just call render function that'll render all the todos again (since the todo will have it's updated values in the storage, on re rendering all todos, the updated todo should get rendered. But I'm assuming this is a costly operation, idk.
 
-What do you folks think about this approach?
- */
-const handleEditTodo= (e)=>{
+     */
     //currentTodo dom element
     let currentTodoElement= e.target.closest('.todoItemDisplay');
     let todoForm = getTodoForm();
     todoForm.dataset.id= currentTodoElement.dataset.id;
     let currentProject= getCurrentProject();
     //the current todo's details from our storage
-    let currentTodoObject= currentProject.getTodoById(Number(currentTodoElement.dataset.id))
+    let currentTodoObject= currentProject.getTodoById(currentTodoElement.dataset.id)
     
     // replace current todo element with a form element 
     todoWrapper.replaceChild(todoForm,currentTodoElement);
@@ -95,9 +98,16 @@ const setDefaultValues= (cuurrentTodo)=>{
 }
 
 
-const handleDeleteTodo= ()=>{
+const handleDeleteTodo= (e)=>{
     /*
     - delete is pretty simple -> onclick-> delete todo from main storage-> re-rendered all todos */
+    let currentTodoId= e.target.closest('.todoItemDisplay').dataset.id;
+    let currentProject= getCurrentProject();
+    
+    //delete todo from todoArray in storage
+    currentProject.deleteTodo(currentTodoId);
+    //render all remaining todos
+    renderTodos(currentProject);
 }
 
 const getTodoForm= ()=>{
@@ -173,7 +183,7 @@ const handleSave= (e)=> {
     //if the defaultValue of any input is not empty, that means the form has been edited, so this time just update the values of the current todo and call the Render Function
     if(document.getElementById('todoTitle').defaultValue!='')
         {
-            let currentTodoId=Number(todoForm.dataset.id);
+            let currentTodoId=todoForm.dataset.id;
             //update title 
             currentProject.changeTitle(todoTitle, currentTodoId);
             //update dueDate
@@ -196,7 +206,7 @@ const handleSave= (e)=> {
 const getCurrentProject =()=>{
     //console.log('cuurent projh')
     let projectHeading= document.getElementById('projectHeading');
-    let pId= Number(projectHeading.dataset.id);
+    let pId=projectHeading.dataset.id;
   
     return ProjectManager.getProjectById(pId)
 }

@@ -147,13 +147,13 @@ const ProjectManager = (()=>{
 
 export  {ProjectManager};
 
-ProjectManager.addProject(1, 'work', 'webdev');
+ProjectManager.addProject('1', 'work', 'webdev');
 //  ProjectManager.addProject(2, 'read', 'docs');
  // console.log(ProjectManager.getProjectById(1));
  let projectArr= ProjectManager.getAllProjects();
- projectArr[0].addTodo(1,false,'work on app','2022-02-28', 'high');
- projectArr[0].addTodo(2,false,'todo_TWO','2022-03-28', 'low');
- projectArr[0].addTodo(3,false,'TODO_THREE','2022-04-28', 'medium');
+ projectArr[0].addTodo('1',false,'work on app','2022-02-28', 'high');
+ projectArr[0].addTodo('2',false,'todo_TWO','2022-03-28', 'low');
+ projectArr[0].addTodo('3',false,'TODO_THREE','2022-04-28', 'medium');
 // console.log(projectArr[0].getAllTodos())
 
 // console.log(p1)
