@@ -16,6 +16,7 @@ export default function renderDOM(){
     menuBtn.addEventListener('click', ()=> menuToggle(aside, main))
 
     content.append(header(),menuBtn,aside(),main(),footer());
+    
     return content;
 }
 /*

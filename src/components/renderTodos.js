@@ -4,6 +4,7 @@ export default function renderTodos(currentProject){
     //grab all the todos in the current project
     let todoArray= currentProject.getAllTodos();
     //console.log(currentProject)
+   
     //grab the todoWrapper
     let todoWrapper= document.querySelector('#todoWrapper');
 

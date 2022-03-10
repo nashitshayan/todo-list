@@ -1,6 +1,7 @@
 //import { createTodo, markComplete , changePriority} from "./components/app";
 
 import renderDOM from './components/renderDOM';
+import renderProjects from './components/renderProjects';
 import './css/styles.css';
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -13,4 +14,7 @@ import '@fortawesome/fontawesome-free/js/brands'
 
 
 //console.table(changePriority())
+
 document.body.append(renderDOM())
+document.body.onload= renderProjects();
+

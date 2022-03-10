@@ -1,8 +1,7 @@
 import { ProjectManager } from './app';
 import { v4 as uuidv4 } from 'uuid';
-import renderProjectPage from './renderProject';
-
-
+import renderProjects from './renderProjects';
+import addProjectButton from './addNewProjectBtn';
 
 export default function aside(){
     // make a container to hold all sidebar elements
@@ -20,22 +19,19 @@ export default function aside(){
 
 
     //make a container to hold custom projects
-    let customProjectsDiv= document.createElement('div');
-    customProjectsDiv.id= 'customProjectsDiv';
+    let customProjectWrapper= document.createElement('div');
+    customProjectWrapper.id= 'customProjectWrapper';
 
-    //make an element that will allow users to add new projects
-    let addNewProjectDiv= document.createElement('span');
-    addNewProjectDiv.innerHTML= `Add New Project <i class="fa fa-plus-circle"></i>`;
-    addNewProjectDiv.id='addNewProject';
-    
-    customProjectsDiv.append(addNewProjectDiv)
-    
-    //event delegation
-    customProjectsDiv.addEventListener('click', handleClick)
+     //make an element that will allow users to add new projects
+     addProjectButton(customProjectWrapper);
+     
+     //event delegation
+     customProjectWrapper.addEventListener('click', handleClick)
+
    
-
-    asideDiv.append(defaultProjectsDiv, customProjectsDiv);
-
+    asideDiv.append(defaultProjectsDiv, customProjectWrapper);
+   // renderProjects();
+    
     return asideDiv;
 }
 
@@ -66,13 +62,13 @@ const newProjectForm = (addNewProjectDiv)=>{
 
 
     newProjectFormDiv.append(btnAddProject, btnCancelProject)
-    customProjectsDiv.insertBefore(newProjectFormDiv, addNewProjectDiv);
+    customProjectWrapper.insertBefore(newProjectFormDiv, addNewProjectDiv);
 }
 
 
 
 const handleCancelProjectForm= (newProjForm)=>{
-    customProjectsDiv.removeChild(newProjForm);
+    customProjectWrapper.removeChild(newProjForm);
 }
 
 
@@ -85,25 +81,26 @@ const handleAddProject= (e)=>{
     //add project to the Project Array
     ProjectManager.addProject(newProjectId,projectTitle,projectDescription);
 
-    let projectForm= e.target.parentElement;
-    //display the newly added project
-    renderNewProjectTile(projectForm, newProjectId);
+   // let projectForm= e.target.parentElement;
+    //display the projects
+    renderProjects();
+   // renderNewProjectTile(projectForm, newProjectId);
 }
 
 
-const renderNewProjectTile= (projectForm, pId)=>{
-    //console.log(ProjectManager.getProjectById(pId))
-    let projectTile= document.createElement('div');
-    projectTile.classList.add('projectTile');
-    projectTile.innerHTML= `
-        <div>${ProjectManager.getProjectById(pId).pTitle}</div>
-        <div>${ProjectManager.getProjectById(pId).pDescription}</div>
-    `
-    customProjectsDiv.replaceChild(projectTile, projectForm)
+// const renderNewProjectTile= (projectForm, pId)=>{
+//     //console.log(ProjectManager.getProjectById(pId))
+//     let projectTile= document.createElement('div');
+//     projectTile.classList.add('projectTile');
+//     projectTile.innerHTML= `
+//         <div>${ProjectManager.getProjectById(pId).pTitle}</div>
+//         <div>${ProjectManager.getProjectById(pId).pDescription}</div>
+//     `
+//     customProjectWrapper.replaceChild(projectTile, projectForm)
 
-    //every time the project tile is clicked, display project details with all its todos sin the mainContent
-    projectTile.addEventListener('click', ()=>renderProjectPage(ProjectManager.getProjectById(pId)))
-}
+//     //every time the project tile is clicked, display project details with all its todos sin the mainContent
+//     projectTile.addEventListener('click', ()=>renderProjectPage(ProjectManager.getProjectById(pId)))
+// }
 
 
 

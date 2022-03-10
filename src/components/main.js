@@ -34,12 +34,15 @@ const handleClick= (e)=>{
     if(e.target.closest('#editTodoBtn')) handleEditTodo(e);
     if(e.target.closest('#deleteTodoBtn')) handleDeleteTodo();
 }
-const handleChange = (e)=>{
-    if(e.target.closest('#todoTitle')) updateTodoTitle(e);
-    if(e.target.closest('#todoDueDate')) updateTodoDueDate(e);
-    if(e.target.closest('#todoPriority')) updateTodoPriority(e);
-    //todoTitle todoDueDate todoPriority
-}
+
+// const handleChange = (e)=>{
+//     if(e.target.closest('#todoTitle')) updateTodoTitle(e);
+//     if(e.target.closest('#todoDueDate')) updateTodoDueDate(e);
+//     if(e.target.closest('#todoPriority')) updateTodoPriority(e);
+//     //todoTitle todoDueDate todoPriority
+// }
+
+
 const updateTodoTitle =(e)=>{
     console.log(e.target.value)
 }
@@ -68,7 +71,7 @@ const handleEditTodo= (e)=>{
     todoForm.dataset.id= currentTodoElement.dataset.id;
     let currentProject= getCurrentProject();
     //the current todo's details from our storage
-    let currentTodoObject= currentProject.getTodoById(currentTodoElement.dataset.id)
+    let currentTodoObject= currentProject.getTodoById(Number(currentTodoElement.dataset.id))
     
     // replace current todo element with a form element 
     todoWrapper.replaceChild(todoForm,currentTodoElement);
@@ -82,7 +85,12 @@ const setDefaultValues= (cuurrentTodo)=>{
     let todoPriority= document.getElementById('todoPriority');
     todoTitle.defaultValue= cuurrentTodo.title;
     todoDueDate.defaultValue= cuurrentTodo.dueDate;
-    todoPriority.options[todoPriority.selectedIndex].text= cuurrentTodo.priority;
+    console.log(todoPriority.options)
+    Array.from(todoPriority.options).forEach(option=> {
+        if(option.value===cuurrentTodo.priority) 
+            option.selected=true;
+        })
+   // todoPriority.options[todoPriority.selectedIndex].text= cuurrentTodo.priority;
     
 }
 
@@ -138,7 +146,15 @@ const handleAddTodo = ()=>{
 const handleCancelTodoForm= (e)=>{
    
     let todoItem= e.target.closest('.todoItemWrapper')
-    todoWrapper.removeChild(todoItem);
+
+
+    if(document.getElementById('todoTitle').defaultValue!='')   
+    {   
+        //ugh, I'll think of a better solution later (hopefully)
+        renderTodos(getCurrentProject())
+    }
+    else
+        todoWrapper.removeChild(todoItem);
     //.log(todoWrapper, todoItem)
 }
 
@@ -157,7 +173,7 @@ const handleSave= (e)=> {
     //if the defaultValue of any input is not empty, that means the form has been edited, so this time just update the values of the current todo and call the Render Function
     if(document.getElementById('todoTitle').defaultValue!='')
         {
-            let currentTodoId=todoForm.dataset.id;
+            let currentTodoId=Number(todoForm.dataset.id);
             //update title 
             currentProject.changeTitle(todoTitle, currentTodoId);
             //update dueDate
@@ -180,8 +196,8 @@ const handleSave= (e)=> {
 const getCurrentProject =()=>{
     //console.log('cuurent projh')
     let projectHeading= document.getElementById('projectHeading');
-    let pId= projectHeading.dataset.id;
-
+    let pId= Number(projectHeading.dataset.id);
+  
     return ProjectManager.getProjectById(pId)
 }
 
