@@ -128,7 +128,7 @@ const handleSaveProject= (projForm)=>{
            //add project to the Project Array
         ProjectManager.addProject(newProjectId,projectTitle,projectDescription);
     //update local storage
-    //ProjectManager.setLocalStorage();
+    //ProjectManager.setTodosLocalStorage();
 
    // let projectForm= e.target.parentElement;
     //display the projects
