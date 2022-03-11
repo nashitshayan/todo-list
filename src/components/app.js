@@ -107,7 +107,7 @@ const ProjectFactory= (pId,pTitle, pDescription)=>{
 
 const ProjectManager = (()=>{
     //the array to hold all projects
-    const projectArray= [];
+    let projectArray= [];
 
     //search for a particular project
     const findProject = (projectArr,id)=>{
@@ -138,8 +138,16 @@ const ProjectManager = (()=>{
         targetProject.pDescription= newDescription;
     }
 
+    
+    //delete  project
+    const deleteProject = (pId)=>{projectArray=projectArray.filter((project)=> project.pId!=pId)};
+
+    const setLocalStorage= ()=>{
+        window.localStorage.setItem('myProjects', JSON.stringify(projectArray))
+    }
+
     return {
-        addProject, getAllProjects, getProjectById, changeProjectDescription, changeProjectTitle
+        addProject, getAllProjects, getProjectById, changeProjectDescription, changeProjectTitle, deleteProject, setLocalStorage
     }
 
 })();
