@@ -49,50 +49,62 @@ const TodoFactory= (id, isDone='false',title='Untitled', dueDate= currentDate, p
 //     },
 // ];
 
-
-
+// console.log(localStorage)
+//localStorage.clear();
 const ProjectFactory= (pId,pTitle, pDescription)=>{
+  //  console.log(localStorage.pTitle)
     //local array that will store each project's todos
-    let todoArray= [];
+    let todoArray= localStorage[pTitle] ? JSON.parse(localStorage.getItem(pTitle)) : [];
 
+    const setLocalStorage= ()=>{
+        window.localStorage.setItem(pTitle, JSON.stringify(todoArray));
+       // console.log(localStorage[pTitle])
+    }
     //function getProjectDetails(){return {pId,title,description}}
 
     //search for a particular todo in the todo array
-    const findTodo = (todoArr,id)=>{
-        return todoArr.find(todo=> todo.id===id);
+    const findTodo = (id)=>{
+        // if(localStorage.pTitle)
+        //     todoArray = JSON.parse(localStorage.getItem(pTitle));    
+        return todoArray.find(todo=> todo.id===id);
     }
     
     //create new todos
     const addTodo = (id,isDone,title,dueDate, priority)=>{
         let newTodo= TodoFactory(id,isDone,title,dueDate, priority);
         todoArray.push(newTodo);
+        setLocalStorage();
     }
 
 
     //read todos
     const getAllTodos= ()=>  todoArray;
-    const getTodoById= (id)=> findTodo(todoArray,id);
+    const getTodoById= (id)=> findTodo(id);
     
 
     //update todo details
     const changeStatus = (id)=> {
-        let targetTodo = findTodo(todoArray,id);
+        let targetTodo = findTodo(id);
         targetTodo.isDone= targetTodo.isDone===true? false: true;
+        setLocalStorage();
     } 
 
     const changeTitle= (newTitle, id)=>{
-        let targetTodo = findTodo(todoArray,id);
+        let targetTodo = findTodo(id);
         targetTodo.title= newTitle;
+        setLocalStorage();
     }
 
     const changeDueDate= (newDueDate,id)=> {
-        let targetTodo = findTodo(todoArray,id);
+        let targetTodo = findTodo(id);
         targetTodo.dueDate= newDueDate;
+        setLocalStorage();
     }
 
     const changePriority = (newPriority, id)=> {
-        let targetTodo = findTodo(todoArray,id);
+        let targetTodo = findTodo(id);
         targetTodo.priority= newPriority;    
+        setLocalStorage();
     };
 
 
@@ -156,13 +168,19 @@ const ProjectManager = (()=>{
 export  {ProjectManager};
 
 ProjectManager.addProject('1', 'work', 'webdev');
+ProjectManager.addProject('2', 'play', 'basketball');
 //  ProjectManager.addProject(2, 'read', 'docs');
  // console.log(ProjectManager.getProjectById(1));
- let projectArr= ProjectManager.getAllProjects();
- projectArr[0].addTodo('1',false,'work on app','2022-02-28', 'high');
- projectArr[0].addTodo('2',false,'todo_TWO','2022-03-28', 'low');
- projectArr[0].addTodo('3',false,'TODO_THREE','2022-04-28', 'medium');
-// console.log(projectArr[0].getAllTodos())
+//  let projectArr= ProjectManager.getAllProjects();
+//  projectArr[0].addTodo('1',false,'work on app','2022-02-28', 'high');
+//  projectArr[0].addTodo('2',false,'todo_TWO','2022-03-28', 'low');
+//  projectArr[0].addTodo('3',false,'TODO_THREE','2022-04-28', 'medium');
+
+//  projectArr[1].addTodo('1',false,'DrillONEapp','2022-02-28', 'high');
+//  projectArr[1].addTodo('2',false,'DrillONE','2022-03-28', 'low');
+//  projectArr[1].addTodo('3',false,'DrillONEEE','2022-04-28', 'medium');
+// //console.log(projectArr[0].getAllTodos())
+//console.log(projectArr[1].getAllTodos())
 
 // console.log(p1)
 // let p1= ProjectFactory('Work', 'working on todoApp');
