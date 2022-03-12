@@ -8,14 +8,16 @@ export default function aside(){
     // NEEDS TO BE UPDATED
     const asideDiv = document.createElement('div');
     asideDiv.id= 'aside';
-    asideDiv.textContent= 'ASIDE';
+    let asideHeading= document.createElement('h3');
+    asideHeading.id='asideHeading';
+    asideHeading.textContent= 'Projects';
     asideDiv.style.display = 'none';
 
     //make a container to hold default projects
     //NEEDS TO BE UPDATED
-    let defaultProjectsDiv= document.createElement('div');
-    defaultProjectsDiv.textContent= 'DEFAULT PROJECT DIV';
-    defaultProjectsDiv.id= 'defaultProjectsDiv';
+    // let defaultProjectsDiv= document.createElement('div');
+    // defaultProjectsDiv.textContent= 'DEFAULT PROJECT DIV';
+    // defaultProjectsDiv.id= 'defaultProjectsDiv';
 
 
     //make a container to hold custom projects
@@ -28,8 +30,8 @@ export default function aside(){
      //event delegation
      customProjectWrapper.addEventListener('click', handleClick)
 
-   
-    asideDiv.append(defaultProjectsDiv, customProjectWrapper);
+   //defaultProjectsDiv,
+    asideDiv.append(asideHeading, customProjectWrapper);
    // renderProjects();
     
     return asideDiv;
@@ -37,8 +39,8 @@ export default function aside(){
 
 const handleClick = (e)=>{
     if(e.target.closest('#addNewProject')) handleAddForm(e.target.closest('#addNewProject'));
-    if(e.target.closest('#btnSaveProject')) handleSaveProject(e.target.closest('#btnSaveProject').parentElement);
-    if(e.target.closest('#btnCancelProject')) handleCancelProjectForm(e.target.closest('#btnCancelProject').parentElement);
+    if(e.target.closest('#btnSaveProject')) handleSaveProject(e.target.closest('#btnSaveProject').parentElement.parentElement);
+    if(e.target.closest('#btnCancelProject')) handleCancelProjectForm(e.target.closest('#btnCancelProject').parentElement.parentElement);
     if(e.target.closest('#btnEditProject')) handleEditProject(e)
     if(e.target.closest('#btnDeleteProject')) handleDeleteProject(e);
 }
@@ -59,8 +61,8 @@ const handleEditProject= (e)=>{
 }
 
 const setDefaultValues= (currentProject)=>{
-    let projectTitle= document.getElementById('projectTitle');
-    let projectDescription= document.getElementById('projectDescription');
+    let projectTitle= document.getElementById('projectFormTitle');
+    let projectDescription= document.getElementById('projectFormDescription');
     projectTitle.defaultValue= currentProject.pTitle;
     projectDescription.defaultValue= currentProject.pDescription;
    
@@ -81,21 +83,22 @@ const getProjectForm= ()=>{
     let newProjectFormDiv= document.createElement('div');
     
     newProjectFormDiv.innerHTML= `
-        <input id='projectTitle' type='text' placeholder='enter title here'/>
-        <input id='projectDescription' type='text' placeholder='enter description here'/>
+        <input id='projectFormTitle' type='text' placeholder='enter title here'/>
+        <input id='projectFormDescription' type='text' placeholder='enter description here'/>
     `
 
+    let btnWrapper= document.createElement('div');
+
     let btnSaveProject= document.createElement('button');
-   // btnSaveProject.type= 'submit';
-    btnSaveProject.textContent= "Add";
+    btnSaveProject.textContent= "Save";
     btnSaveProject.id='btnSaveProject';
     
     let btnCancelProject= document.createElement('button');
     btnCancelProject.textContent= "Cancel";
     btnCancelProject.id='btnCancelProject';
 
-
-    newProjectFormDiv.append(btnSaveProject, btnCancelProject)
+    btnWrapper.append(btnSaveProject, btnCancelProject)
+    newProjectFormDiv.append(btnWrapper)
     
     return newProjectFormDiv;
 }
@@ -111,11 +114,11 @@ const handleAddForm = (addNewProjectDiv)=>{
 
 const handleSaveProject= (projForm)=>{
     let newProjectId= uuidv4();
-    let projectTitle= document.getElementById('projectTitle').value;
-    let projectDescription= document.getElementById('projectDescription').value;
+    let projectTitle= document.getElementById('projectFormTitle').value;
+    let projectDescription= document.getElementById('projectFormDescription').value;
   
     //if the defaultValue of any input is not empty, that means the form has been edited, so this time just update the values of the current project and call the Render Function
-    if(document.getElementById('projectTitle').defaultValue!='')
+    if(document.getElementById('projectFormTitle').defaultValue!='')
         {
             let currentProjectId=projForm.dataset.id;
             //update title 
@@ -140,7 +143,7 @@ const handleSaveProject= (projForm)=>{
 const handleCancelProjectForm= (newProjForm)=>{
 
     //ugh, I'll think of a better solution later (hopefully)
-    if(document.getElementById('projectTitle').defaultValue!='')
+    if(document.getElementById('projectFormTitle').defaultValue!='')
         renderProjects();
     else
         customProjectWrapper.removeChild(newProjForm);

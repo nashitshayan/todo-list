@@ -15,6 +15,7 @@ export default function main(){
 
     let todoWrapper= document.createElement('div');
     todoWrapper.id='todoWrapper';
+    todoWrapper.textContent= 'Add or click on a project.'
 
     //event delegation for click events
     todoWrapper.addEventListener("click", handleClick);
@@ -35,23 +36,6 @@ const handleClick= (e)=>{
     if(e.target.closest('#deleteTodoBtn')) handleDeleteTodo(e);
 }
 
-// const handleChange = (e)=>{
-//     if(e.target.closest('#todoTitle')) updateTodoTitle(e);
-//     if(e.target.closest('#todoDueDate')) updateTodoDueDate(e);
-//     if(e.target.closest('#todoPriority')) updateTodoPriority(e);
-//     //todoTitle todoDueDate todoPriority
-// }
-
-
-const updateTodoTitle =(e)=>{
-    console.log(e.target.value)
-}
-const updateTodoDueDate =(e)=>{
-    console.log(e.target.value)
-}
-const updateTodoPriority =(e)=>{
-    console.log(e.target.value)
-}
  /*
 What I was thinking of doing is :
 
@@ -83,9 +67,9 @@ const handleEditTodo= (e)=>{
 }
 
 const setDefaultValues= (cuurrentTodo)=>{
-    let todoTitle= document.getElementById('todoTitle');
-    let todoDueDate= document.getElementById('todoDueDate');
-    let todoPriority= document.getElementById('todoPriority');
+    let todoTitle= document.getElementById('todoFormTitle');
+    let todoDueDate= document.getElementById('todoFormDueDate');
+    let todoPriority= document.getElementById('todoFormPriority');
     todoTitle.defaultValue= cuurrentTodo.title;
     todoDueDate.defaultValue= cuurrentTodo.dueDate;
     console.log(todoPriority.options)
@@ -117,23 +101,24 @@ const getTodoForm= ()=>{
     let newTodo= document.createElement('div');
     newTodo.classList.add('todoItemWrapper')
     //STYLE NEEDS UPDATE
-    newTodo.style.backgroundColor='red';
+    // newTodo.style.backgroundColor='red';
     
-    let newTitle = document.createElement('span');
+    let newTitle = document.createElement('div');
     newTitle.innerHTML=`
-    <input id='todoTitle' type='text' placeholder='type here...'> `;
-    let dueDate = document.createElement('span');
-    dueDate.innerHTML=`<input id='todoDueDate' type="date" class="dueDate" min=${currentDate}>`;
+    <input id='todoFormTitle' type='text' placeholder='type here...'> `;
+    let dueDate = document.createElement('div');
+    dueDate.innerHTML=`<input id='todoFormDueDate' type="date" class="dueDate" min=${currentDate}>`;
     
-    let priority= document.createElement('span');
+    let priority= document.createElement('div');
     priority.innerHTML= `
-        <select id='todoPriority' name="todoPriority" class="todoPriority">
-            <option value="low">low</option>
-            <option value="medium">medium</option>
-            <option value="high">high</option>
+        <select id='todoFormPriority' name="todoPriority" class="todoPriority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
         </select>
         `;
 
+    let btnWrapper= document.createElement('div')
     let saveBtn= document.createElement('i');
     saveBtn.classList.add('saveTodo', 'fa-solid', 'fa-check','tick');
     
@@ -141,7 +126,8 @@ const getTodoForm= ()=>{
     let cancelBtn = document.createElement('i');
     cancelBtn.classList.add('cancelTodo', 'fa-solid' ,'fa-xmark');
 
-    newTodo.append(newTitle, dueDate,priority,saveBtn ,cancelBtn);
+    btnWrapper.append(saveBtn, cancelBtn)
+    newTodo.append(newTitle, dueDate,priority,btnWrapper);
     return newTodo;
 }
 
@@ -158,7 +144,7 @@ const handleCancelTodoForm= (e)=>{
     let todoItem= e.target.closest('.todoItemWrapper')
 
 
-    if(document.getElementById('todoTitle').defaultValue!='')   
+    if(document.getElementById('todoFormTitle').defaultValue!='')   
     {   
         //ugh, I'll think of a better solution later (hopefully)
         renderTodos(getCurrentProject())
@@ -174,14 +160,14 @@ const handleSave= (e)=> {
     let currentProject= getCurrentProject();
    // console.log('saved', currentProject.pTitle)
     let newTodoId= uuidv4();
-    let todoTitle = document.getElementById('todoTitle').value;
-    let todoDueDate = document.getElementById('todoDueDate').value;
-    let todoPriorityElement = document.getElementById('todoPriority');
+    let todoTitle = document.getElementById('todoFormTitle').value;
+    let todoDueDate = document.getElementById('todoFormDueDate').value;
+    let todoPriorityElement = document.getElementById('todoFormPriority');
     let todoPriority= todoPriorityElement.options[todoPriorityElement.selectedIndex].text;
     
 
     //if the defaultValue of any input is not empty, that means the form has been edited, so this time just update the values of the current todo and call the Render Function
-    if(document.getElementById('todoTitle').defaultValue!='')
+    if(document.getElementById('todoFormTitle').defaultValue!='')
         {
             let currentTodoId=todoForm.dataset.id;
             //update title 

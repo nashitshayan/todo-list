@@ -33,12 +33,12 @@ export default function renderProjects(){
         projectTile.classList.add('projectTile');
         projectTile.dataset.id= project.pId;
         projectTile.innerHTML= `
-        <div>${project.pTitle}</div>
-        <div>${project.pDescription}</div>
+        <div class='projectTitle'>${project.pTitle}</div>
+        <div class='projectDescription'>${project.pDescription}</div>
         <i id='btnEditProject' class="fa-solid fa-pencil"></i>
         <i id='btnDeleteProject' class="fa-solid fa-trash"></i>
       `
-        
+      
       customProjectWrapper.append(projectTile)
       
      //every time the project tile is clicked, display project details with all its todos sin the mainContent
