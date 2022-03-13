@@ -1,14 +1,17 @@
 import addTodoButton from "./addTodoButton";
 
 export default function renderTodos(currentProject){
-    //grab all the todos in the current project
-    let todoArray= currentProject.getAllTodos();
-    //console.log(currentProject)
-   
     //grab the todoWrapper
     let todoWrapper= document.querySelector('#todoWrapper');
 
     todoWrapper.innerHTML='';
+
+
+    //grab all the todos in the current project
+    let todoArray= currentProject.getAllTodos();
+    //console.log(currentProject)
+   
+    
     //todoWrapper.removeEventListener("click", (e)=> handleClick(e));
     
     //display each todo item

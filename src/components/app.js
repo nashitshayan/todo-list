@@ -118,8 +118,12 @@ const ProjectFactory= (pId,pTitle, pDescription)=>{
         setTodosLocalStorage();
     };
 
+    const deleteAllTodos= ()=>{
+        todoArray=[];
+    }
+
     return {
-        pId,pTitle,pDescription,addTodo,getAllTodos, getTodoById,changeStatus ,changeTitle, changeDueDate, changePriority, deleteTodo
+        pId,pTitle,pDescription,addTodo,getAllTodos, getTodoById,changeStatus ,changeTitle, changeDueDate, changePriority, deleteTodo, deleteAllTodos,
     }
 }
 

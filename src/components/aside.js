@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import renderProjects from './renderProjects';
 import addProjectButton from './addNewProjectBtn';
 import renderProjectPage from "./renderProjectPage";
+import renderTodos from './renderTodos';
 export default function aside(){
     // make a container to hold all sidebar elements
     // NEEDS TO BE UPDATED
@@ -72,10 +73,17 @@ const handleDeleteProject= (e)=>{
 
     let currentProjectId= e.target.closest('.projectTile').dataset.id;
     
-    //delete todo from todoArray in storage
+    //delete all todos of this project
+   ProjectManager.getProjectById(currentProjectId).deleteAllTodos();
+    //delete project from ProjectArray in storage
     ProjectManager.deleteProject(currentProjectId);
     //render all remaining projects
     renderProjects();
+    //set main content to default
+    let todoWrapper= document.querySelector('#todoWrapper');
+    todoWrapper.innerHTML='Add or click on a project.';
+    let projectHeading=document.getElementById('projectHeading');
+    projectHeading.textContent= 'Untitled';
 }
 
 
