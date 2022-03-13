@@ -13,7 +13,7 @@ export default function renderDOM(){
     const menuBtn= document.createElement('span');
     menuBtn.id= 'menuBtn';
     menuBtn.innerHTML= `<i class="fa-solid fa-bars"></i>`;
-    menuBtn.addEventListener('click', ()=> menuToggle(aside, main))
+    menuBtn.addEventListener('click', ()=> menuToggle(aside(), main()))
 
     content.append(header(),menuBtn,aside(),main(),footer());
     
