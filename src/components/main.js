@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import {format} from 'date-fns';
+import {format, parseISO} from 'date-fns';
 import { ProjectManager } from './app';
 import renderTodos from './renderTodos';
 
@@ -34,8 +34,19 @@ const handleClick= (e)=>{
     if(e.target.closest('.saveTodo')) handleSave(e);
     if(e.target.closest('#editTodoBtn')) handleEditTodo(e);
     if(e.target.closest('#deleteTodoBtn')) handleDeleteTodo(e);
+    if(e.target.closest('.todoCheckBoxDisplay')) handleCheckBox(e)
 }
 
+const handleCheckBox= (e)=>{
+    let currentTodoElement = e.target.closest('.todoItemDisplay');
+    //change style
+    currentTodoElement.classList.toggle('checked');
+    
+    //update status in storage
+    let currentProject= getCurrentProject();
+    currentProject.changeStatus(currentTodoElement.dataset.id)
+   
+}
  /*
 What I was thinking of doing is :
 
@@ -71,14 +82,13 @@ const setDefaultValues= (cuurrentTodo)=>{
     let todoDueDate= document.getElementById('todoFormDueDate');
     let todoPriority= document.getElementById('todoFormPriority');
     todoTitle.defaultValue= cuurrentTodo.title;
-    todoDueDate.defaultValue= cuurrentTodo.dueDate;
-    console.log(todoPriority.options)
+   // todoDueDate.defaultValue= format(new Date(cuurrentTodo.dueDate), 'yyyy-MM-dd');
+    console.log(parseISO(cuurrentTodo.dueDate))
     Array.from(todoPriority.options).forEach(option=> {
         if(option.value===cuurrentTodo.priority) 
             option.selected=true;
         })
-   // todoPriority.options[todoPriority.selectedIndex].text= cuurrentTodo.priority;
-    
+
 }
 
 
@@ -112,9 +122,9 @@ const getTodoForm= ()=>{
     let priority= document.createElement('div');
     priority.innerHTML= `
         <select id='todoFormPriority' name="todoPriority" class="todoPriority">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
         </select>
         `;
 

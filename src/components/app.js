@@ -1,10 +1,14 @@
-import { format} from "date-fns";
+import { format, parseISO} from "date-fns";
 let currentDate= format(new Date(), 'yyyy-MM-dd');
+const formatDueDate= (dueDate)=> format(new Date(dueDate), 'do MMMM yyyy'); 
+
+
 
 const TodoFactory= (id, isDone='false',title='Untitled', dueDate= currentDate, priority='low')=>{
-
+    dueDate= formatDueDate(dueDate);
     return {id,isDone,title,dueDate,priority};
 }
+
 
 // let todoArray= [
 //     {
@@ -97,7 +101,7 @@ const ProjectFactory= (pId,pTitle, pDescription)=>{
 
     const changeDueDate= (newDueDate,id)=> {
         let targetTodo = findTodo(id);
-        targetTodo.dueDate= newDueDate;
+        targetTodo.dueDate= formatDueDate(newDueDate);
         setTodosLocalStorage();
     }
 

@@ -175,20 +175,26 @@ header{
     display: flex;
    
 }
+
 .todoItemWrapper{
     justify-content: space-around;
     align-items: center;
 }
 
+
 .todoItemDisplay{
     flex-direction: column;
     gap: 1rem;
 }
+
 .todoItemDisplay >*{
    display: flex;
-   align-items: center;
    gap: 3rem;
 }
+.todoDetailsWrapper > * {
+    flex: 1;
+}
+
 
 #todoFormTitle, #todoFormDueDate, #todoFormPriority{
    padding: 0.3rem;
@@ -212,8 +218,56 @@ header{
   
 }
 
+
+/* got this from an article */
+.checkbox-control{
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-top: 0.3em;
+}
 .todoCheckBoxDisplay{
-    
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+     appearance: none;
+  /* For iOS < 15 to remove gradient background */
+    background-color: #fff;
+  /* Not removed via appearance */
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1em;
+    height: 1em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+
+  .todoCheckBoxDisplay::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--clr-accent);
+
+     /* Windows High Contrast Mode */
+  background-color: CanvasText;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+
+  .todoCheckBoxDisplay:checked::before {
+    transform: scale(1);
+  }
+
+
+.checked{
+    text-decoration:line-through;
+    background-color: rgb(94, 94, 94);
 }
 
 #editTodoBtn{
