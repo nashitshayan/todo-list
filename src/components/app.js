@@ -59,11 +59,11 @@ const ProjectFactory= (pId,pTitle, pDescription)=>{
   //  console.log(localStorage.pTitle)
     //local array that will store each project's todos
     //if a project's todo array exists in the local storage, then that will become the todoArray where all operations will take place, otherwise it'll be an empty array.
-    let todoArray= localStorage[pTitle] ? JSON.parse(localStorage.getItem(pTitle)) : [];
+    let todoArray= localStorage[pTitle] ? JSON.parse(localStorage.getItem(pId)) : [];
 
     //this function is called everytime a change is made to the todoarray, it updates the project's todoArray in the localstorage
     const setTodosLocalStorage= ()=>{
-        window.localStorage.setItem(pTitle, JSON.stringify(todoArray));
+        window.localStorage.setItem(pId, JSON.stringify(todoArray));
        // console.log(localStorage[pTitle])
     }
     //function getProjectDetails(){return {pId,title,description}}
