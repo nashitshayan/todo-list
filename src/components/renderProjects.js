@@ -1,21 +1,9 @@
 import { ProjectManager } from "./app";
 import addProjoectButton from "./addNewProjectBtn";
 import renderProjectPage from "./renderProjectPage";
+import menuToggle from "./menuToggle";
 
 export default function renderProjects() {
-  //     if(!localStorage.myLibrary)
-  //     myLibrary.forEach(book => {
-  //         let key = (myLibrary.indexOf(book))
-  //         createNewBookCard(key, book.title, book.author, book.pages,book.isRead);
-  // })
-  // else
-  // {
-  //    let localStorageLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-  //    localStorageLibrary.forEach(book => {
-  //        let key = (localStorageLibrary.indexOf(book));
-  //        createNewBookCard(key, book.title, book.author, book.pages, book.isRead)
-  //     })
-  // }
   //grab all the projects
   let projectsArray = ProjectManager.getAllProjects();
   console.log(projectsArray);
@@ -23,7 +11,7 @@ export default function renderProjects() {
   let customProjectWrapper = document.getElementById("customProjectWrapper");
 
   customProjectWrapper.innerHTML = "";
-  // console.log(customProjectsDiv)
+
   //display each project
   projectsArray.forEach((project) => {
     let projectTile = document.createElement("div");
@@ -38,8 +26,10 @@ export default function renderProjects() {
 
     customProjectWrapper.append(projectTile);
 
-    //every time the project tile is clicked, display project details with all its todos sin the mainContent
-    projectTile.addEventListener("click", () => renderProjectPage(project));
+    //every time the project tile is clicked, display project details with all its todos in the mainContent
+    projectTile.addEventListener("click", () => {
+      renderProjectPage(project)
+      menuToggle() });
   }, true);
 
   addProjoectButton(customProjectWrapper);

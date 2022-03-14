@@ -48,12 +48,7 @@ const handleCheckBox = (e) => {
   let currentProject = getCurrentProject();
   currentProject.changeStatus(currentTodoElement.dataset.id);
 };
-/*
-What I was thinking of doing is :
 
-
-What do you folks think about this approach?
- */
 const handleEditTodo = (e) => {
   /**
      * - for edit-> onclick-> replace current todo element with a form element-> and add the current todo's values to it -> change the values as needed -> each input field having an onchange that updates the todo's values storage by calling the respective functions (changeTitle, changePriority etc)
@@ -82,7 +77,7 @@ const handleEditTodo = (e) => {
 
 const setDefaultValues = (cuurrentTodo) => {
   let todoTitle = document.getElementById("todoFormTitle");
-  let todoDueDate = document.getElementById("todoFormDueDate");
+  // let todoDueDate = document.getElementById("todoFormDueDate");
   let todoPriority = document.getElementById("todoFormPriority");
   todoTitle.defaultValue = cuurrentTodo.title;
   // todoDueDate.defaultValue= format(new Date(cuurrentTodo.dueDate), 'yyyy-MM-dd');
@@ -110,8 +105,7 @@ const getTodoForm = () => {
   //create a wrapper to hold all input fields.
   let newTodo = document.createElement("div");
   newTodo.classList.add("todoItemWrapper");
-  //STYLE NEEDS UPDATE
-  // newTodo.style.backgroundColor='red';
+ 
 
   let newTitle = document.createElement("div");
   newTitle.innerHTML = `
@@ -158,7 +152,6 @@ const handleCancelTodoForm = (e) => {
 const handleSave = (e) => {
   let todoForm = e.target.closest(".todoItemWrapper");
   let currentProject = getCurrentProject();
-  // console.log('saved', currentProject.pTitle)
   let newTodoId = uuidv4();
   let todoTitle = document.getElementById("todoFormTitle").value;
   let todoDueDate = document.getElementById("todoFormDueDate").value;
@@ -187,15 +180,12 @@ const handleSave = (e) => {
     );
 
   renderTodos(currentProject);
-  // console.log(currentProject.getAllTodos())
 };
 
 const getCurrentProject = () => {
-  //console.log('cuurent projh')
   let projectHeading = document.getElementById("projectHeading");
   let pId = projectHeading.dataset.id;
 
   return ProjectManager.getProjectById(pId);
 };
 
-//getCurrentProject();

@@ -6,21 +6,14 @@ import renderProjectPage from "./renderProjectPage";
 import renderTodos from "./renderTodos";
 export default function aside() {
   // make a container to hold all sidebar elements
-  // NEEDS TO BE UPDATED
   const asideDiv = document.createElement("div");
   asideDiv.id = "aside";
   let asideHeading = document.createElement("h3");
   asideHeading.id = "asideHeading";
   asideHeading.textContent = "Projects";
   asideDiv.classList.add('aside', 'aside-toggle');
-  //asideDiv.style.display = "none";
- // asideDiv.classList.add('visible');
+ 
 
-  //make a container to hold default projects
-  //NEEDS TO BE UPDATED
-  // let defaultProjectsDiv= document.createElement('div');
-  // defaultProjectsDiv.textContent= 'DEFAULT PROJECT DIV';
-  // defaultProjectsDiv.id= 'defaultProjectsDiv';
 
   //make a container to hold custom projects
   let customProjectWrapper = document.createElement("div");
@@ -32,24 +25,16 @@ export default function aside() {
   //event delegation
   customProjectWrapper.addEventListener("click", handleClick);
 
-  //defaultProjectsDiv,
+  
   asideDiv.append(asideHeading, customProjectWrapper);
-  // renderProjects();
 
   return asideDiv;
 }
 
 const handleClick = (e) => {
-  if (e.target.closest("#addNewProject"))
-    handleAddForm(e.target.closest("#addNewProject"));
-  if (e.target.closest("#btnSaveProject"))
-    handleSaveProject(
-      e.target.closest("#btnSaveProject").parentElement.parentElement
-    );
-  if (e.target.closest("#btnCancelProject"))
-    handleCancelProjectForm(
-      e.target.closest("#btnCancelProject").parentElement.parentElement
-    );
+  if (e.target.closest("#addNewProject")) handleAddForm(e.target.closest("#addNewProject"));
+  if (e.target.closest("#btnSaveProject")) handleSaveProject(e.target.closest("#btnSaveProject").parentElement.parentElement);
+  if (e.target.closest("#btnCancelProject"))handleCancelProjectForm(e.target.closest("#btnCancelProject").parentElement.parentElement);
   if (e.target.closest("#btnEditProject")) handleEditProject(e);
   if (e.target.closest("#btnDeleteProject")) handleDeleteProject(e);
 };
@@ -64,7 +49,7 @@ const handleEditProject = (e) => {
   let currentProjectObject = ProjectManager.getProjectById(
     currentProjectElement.dataset.id
   );
-  console.log(currentProjectObject);
+  
   // replace current todo element with a form element
   customProjectWrapper.replaceChild(projectForm, currentProjectElement);
   //and add the current todo's values to it
@@ -145,13 +130,10 @@ const handleSaveProject = (projForm) => {
   //add project to the Project Array
   else
     ProjectManager.addProject(newProjectId, projectTitle, projectDescription);
-  //update local storage
-  //ProjectManager.setTodosLocalStorage();
-
-  // let projectForm= e.target.parentElement;
+ 
   //display the projects
   renderProjects();
-  // renderNewProjectTile(projectForm, newProjectId);
+ 
 };
 
 const handleCancelProjectForm = (newProjForm) => {
@@ -160,17 +142,3 @@ const handleCancelProjectForm = (newProjForm) => {
     renderProjects();
   else customProjectWrapper.removeChild(newProjForm);
 };
-
-// const renderNewProjectTile= (projectForm, pId)=>{
-//     //console.log(ProjectManager.getProjectById(pId))
-//     let projectTile= document.createElement('div');
-//     projectTile.classList.add('projectTile');
-//     projectTile.innerHTML= `
-//         <div>${ProjectManager.getProjectById(pId).pTitle}</div>
-//         <div>${ProjectManager.getProjectById(pId).pDescription}</div>
-//     `
-//     customProjectWrapper.replaceChild(projectTile, projectForm)
-
-//     //every time the project tile is clicked, display project details with all its todos sin the mainContent
-//     projectTile.addEventListener('click', ()=>renderProjectPage(ProjectManager.getProjectById(pId)))
-// }

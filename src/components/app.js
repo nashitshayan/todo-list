@@ -13,53 +13,8 @@ const TodoFactory = (
   return { id, isDone, title, dueDate, priority };
 };
 
-// let todoArray= [
-//     {
-//         id: 1,
-//         isDone : false,
-//         title : 'todo-One',
-//         dueDate: '2022-02-23',
-//         priority: 'high',
-//         category: 'Today',
-//     },
-//     {
-//         id: 2,
-//         isDone : false,
-//         title : 'todo-Two',
-//         dueDate: '2022-02-24',
-//         priority: 'high',
-//         category: 'Tomorrow',
-//     },
-//     {
-//         id: 3,
-//         isDone : false,
-//         title : 'todo-three ',
-//         dueDate: '2022-02-23',
-//         priority: 'low',
-//         category: 'Today',
-//     },
-//     {
-//         id: 4,
-//         isDone : false,
-//         title : 'todo-four',
-//         dueDate: '2022-02-23',
-//         priority: 'high',
-//         category: 'Today',
-//     },
-//     {
-//         id: 5,
-//         isDone : false,
-//         title : 'todo-five',
-//         dueDate: '2022-02-23',
-//         priority: 'low',
-//         category: 'Today',
-//     },
-// ];
-
-// console.log(localStorage)
-//localStorage.clear();
 const ProjectFactory = (pId, pTitle, pDescription) => {
-  //  console.log(localStorage.pTitle)
+  
   //local array that will store each project's todos
   //if a project's todo array exists in the local storage, then that will become the todoArray where all operations will take place, otherwise it'll be an empty array.
   let todoArray = localStorage[pTitle]
@@ -69,10 +24,8 @@ const ProjectFactory = (pId, pTitle, pDescription) => {
   //this function is called everytime a change is made to the todoarray, it updates the project's todoArray in the localstorage
   const setTodosLocalStorage = () => {
     window.localStorage.setItem(pId, JSON.stringify(todoArray));
-    // console.log(localStorage[pTitle])
   };
-  //function getProjectDetails(){return {pId,title,description}}
-
+ 
   //search for a particular todo in the todo array
   const findTodo = (id) => {
     return todoArray.find((todo) => todo.id === id);
@@ -122,6 +75,7 @@ const ProjectFactory = (pId, pTitle, pDescription) => {
 
   const deleteAllTodos = () => {
     todoArray = [];
+    window.localStorage.removeItem(pId);
   };
 
   return {
@@ -160,7 +114,7 @@ const ProjectManager = (() => {
       );
       projectArray.push(newProject);
     });
-    //  console.log(projectArrayWithoutFunctions, projectArray);
+   
   }
 
   //search for a particular project
@@ -218,86 +172,3 @@ const ProjectManager = (() => {
 })();
 
 export { ProjectManager };
-
-//ProjectManager.addProject('1', 'work', 'webdev');
-//ProjectManager.addProject('2', 'play', 'basketball');
-//  ProjectManager.addProject(2, 'read', 'docs');
-// console.log(ProjectManager.getProjectById(1));
-//  let projectArr= ProjectManager.getAllProjects();
-//  projectArr[0].addTodo('1',false,'work on app','2022-02-28', 'high');
-//  projectArr[0].addTodo('2',false,'todo_TWO','2022-03-28', 'low');
-//  projectArr[0].addTodo('3',false,'TODO_THREE','2022-04-28', 'medium');
-
-//  projectArr[1].addTodo('1',false,'DrillONEapp','2022-02-28', 'high');
-//  projectArr[1].addTodo('2',false,'DrillONE','2022-03-28', 'low');
-//  projectArr[1].addTodo('3',false,'DrillONEEE','2022-04-28', 'medium');
-// //console.log(projectArr[0].getAllTodos())
-//console.log(projectArr[1].getAllTodos())
-
-// console.log(p1)
-// let p1= ProjectFactory('Work', 'working on todoApp');
-// p1.addTodo(2,false,'work on app','2022-02-28', 'high');
-
-// p1.changeStatus(2);
-// p1.changeDueDate('2022-03-01', 2)
-// p1.changePriority('medium',2)
-// p1.changeTitle('new title',2)
-// p1.deleteTodo(2)
-
-// console.log(p1.getProjectDetails())
-
-// const mainAppModule= (()=>{
-// let todoArray= [
-//     {
-//         id: 1,
-//         isDone : false,
-//         title : 'todo-One',
-//         dueDate: '2022-02-23',
-//         priority: 'high',
-//         category: 'Today',
-//     },
-//     {
-//         id: 2,
-//         isDone : false,
-//         title : 'todo-Two',
-//         dueDate: '2022-02-24',
-//         priority: 'high',
-//         category: 'Tomorrow',
-//     },
-//     {
-//         id: 3,
-//         isDone : false,
-//         title : 'todo-three ',
-//         dueDate: '2022-02-23',
-//         priority: 'low',
-//         category: 'Today',
-//     },
-//     {
-//         id: 4,
-//         isDone : false,
-//         title : 'todo-four',
-//         dueDate: '2022-02-23',
-//         priority: 'high',
-//         category: 'Today',
-//     },
-//     {
-//         id: 5,
-//         isDone : false,
-//         title : 'todo-five',
-//         dueDate: '2022-02-23',
-//         priority: 'low',
-//         category: 'Today',
-//     },
-// ];
-//     let customProjectsArray= [];
-
-// const setCategory = (dueDate)=>{
-
-//     let tomorrow= format(addDays(new Date(), 1), 'yyyy-MM-dd');
-//     let nextWeek = format(addWeeks(new Date(), 1), 'yyyy-MM-dd');
-
-//     if(dueDate===currentDate) return 'Today';
-//     if(dueDate===tomorrow) return 'Tomorrow';
-//     if(dueDate <= nextWeek) return 'This Week';
-
-// }
