@@ -1,8 +1,7 @@
-export default function header(){
+export default function header() {
+  //create and populate the header
+  const headerElement = document.createElement("header");
+  headerElement.textContent = "Todo App";
 
-        //create and populate the header
-        const headerElement = document.createElement('header');
-        headerElement.textContent= 'Todo App';
-
-        return headerElement;
+  return headerElement;
 }
